@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImp implements CategoryService {
@@ -25,13 +26,31 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public String deleteCategory(Long id) { // Logic to delete a user
+    public String deleteCategory(Long CategoryId) { // Logic to delete a user
         Category category=categories.stream()
-                .filter(c->c.getCategoryId().equals(id))
+                .filter(c->c.getCategoryId().equals(CategoryId))
                 .findFirst()
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resourse Not Found"));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Category Not Found"));
 
         categories.remove(category);
-        return "Category with categoryid: "+id+" deleted successfully";
+        return "Category with categoryid: "+CategoryId+" deleted successfully";
+    }
+
+    @Override
+    public Category updateCategory(Category category , Long CategoryId) {
+        Optional<Category> optionalCategory=categories.stream()
+                .filter(c->c.getCategoryId().equals(CategoryId))
+                .findFirst();
+
+        if(optionalCategory.isPresent()) {
+            Category existingCategory=optionalCategory.get();
+            existingCategory.setCategoryName(category.getCategoryName());
+            return existingCategory;
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Category Not Found");
+        }
+
+
     }
 }
