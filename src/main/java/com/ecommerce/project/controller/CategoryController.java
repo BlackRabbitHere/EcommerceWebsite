@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api") // now we can remove api from every mapping
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -20,19 +21,22 @@ public class CategoryController {
 //        this.categoryService = categoryService;
 //    }
 
-    @GetMapping("/api/public/categories")
+    @GetMapping("/public/categories")
+//    @RequestMapping(value ="/public/categories" ,method = RequestMethod.GET)
     private ResponseEntity<List<Category>> getAllCategories(){
         List<Category> categories = categoryService.getAllCategories();
         return new ResponseEntity<>(categories,HttpStatus.OK);
     }
 
-    @PostMapping("/api/public/categories")
+    @PostMapping("/public/categories")
+//    @RequestMapping(value ="/public/categories" ,method = RequestMethod.POST)
     public ResponseEntity<String> createCategory(@RequestBody Category category){
         categoryService.createCategory(category);
         return new ResponseEntity<>("Category added successfully",HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/api/admin/categories/{categoryId}")
+    @DeleteMapping("/admin/categories/{categoryId}")
+//    @RequestMapping(value ="/api/admin/categories/{categoryId}" ,method = RequestMethod.DELETE)
     public ResponseEntity deleteCategory(@PathVariable Long categoryId){
         try {
             String status = categoryService.deleteCategory(categoryId);
@@ -44,7 +48,8 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/api/public/categories/{categoryId}")
+    @PutMapping("/public/categories/{categoryId}")
+//    @RequestMapping(value ="/api/public/categories/{categoryId}" ,method = RequestMethod.PUT)
     public ResponseEntity<String> updateCategory(@RequestBody Category category, @PathVariable Long categoryId){
         try{
             Category savedCategory = categoryService.updateCategory(category,categoryId);
