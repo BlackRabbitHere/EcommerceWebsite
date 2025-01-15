@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api") // now we can remove api from every mapping
 public class CategoryController {
+    
     @Autowired
     private CategoryService categoryService;
 // we can ignore the constructor by using field injection
@@ -37,7 +38,7 @@ public class CategoryController {
 
     @DeleteMapping("/admin/categories/{categoryId}")
 //    @RequestMapping(value ="/api/admin/categories/{categoryId}" ,method = RequestMethod.DELETE)
-    public ResponseEntity deleteCategory(@PathVariable Long categoryId){
+    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId){
         try {
             String status = categoryService.deleteCategory(categoryId);
             return new ResponseEntity<>(status, HttpStatus.OK);
