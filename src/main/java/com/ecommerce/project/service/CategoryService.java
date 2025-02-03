@@ -9,7 +9,7 @@ import java.util.List;
 // Interface for loose coupling and modularity
 
 public interface CategoryService {
-    CategoryResponse getAllCategories();
+    CategoryResponse getAllCategories(Integer pageNumber, Integer pazeSize,String sortBy,String sortOrder);
     CategoryDTO createCategory(CategoryDTO categoryDTO);
     CategoryDTO deleteCategory(Long categoryId);
     CategoryDTO updateCategory(CategoryDTO categoryDto,Long CategoryId);
