@@ -10,6 +10,7 @@ import com.ecommerce.project.payload.ProductDTO;
 import com.ecommerce.project.payload.ProductResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,13 @@ public class ProductServiceImp implements ProductService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private FileService fileService;
+
+    @Value("${project.image}") // property defined in application.properties
+    private String path;
+
     @Override
     public ProductDTO addProduct(Long categoryId, ProductDTO productDTO){
         Category category = categoryRepository.findById(categoryId)
@@ -120,8 +128,8 @@ public class ProductServiceImp implements ProductService{
 
         // Upload the image to server
         // Get the filename of uploaded image
-        String path="images/";
-        String filename=uploadImage(path,image);
+
+        String filename= fileService.uploadImage(path,image);
 
         // Updating the new file name to the product
         productFromDB.setImage(filename);
@@ -133,27 +141,5 @@ public class ProductServiceImp implements ProductService{
         return modelMapper.map(updatedProduct,ProductDTO.class);
     }
 
-    private String uploadImage(String path, MultipartFile file) throws IOException {
-        // File name of current / original file
-        String originalFilename = file.getOriginalFilename();
 
-        // Generate a unique file name (Random UUID)
-        String randomId= UUID.randomUUID().toString();
-        //mat.jgp --> random int is 1234 ---> new file name 1234.jpg
-        String fileName=randomId.concat(originalFilename.substring(originalFilename.lastIndexOf('.')));
-        String filePath=path+ File.separator+fileName;
-
-        // Check if path exists or create
-        File folder=new File(path);
-        if(!folder.exists()){
-            folder.mkdirs();
-        }
-
-
-        //Upload to server
-        Files.copy(file.getInputStream(), Paths.get(filePath));
-
-        //returning file name
-        return fileName;
-    }
 }
