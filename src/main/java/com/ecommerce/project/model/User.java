@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -36,4 +37,13 @@ public class User{
         this.password = password;
         this.email = email;
     }
+
+    @Setter
+    @Getter
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE} // All the changes or order user do should reflect everywhere
+            ,fetch = FetchType.EAGER) // Eager for when customer accessing the web its role should also be loaded
+    @JoinTable(name="user_role",
+        joinColumns = @JoinColumn(name="user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles=new HashSet<>();// standard accessor that will allow to set roles
 }
