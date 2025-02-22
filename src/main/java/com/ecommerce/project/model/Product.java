@@ -7,12 +7,15 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.aspectj.bridge.IMessage;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="products")
+@ToString
 public class Product {
     //Adding the validations at the model level
     @Id
