@@ -42,7 +42,7 @@ public class User{
     @Column(name="email")
     private String email;
 
-    public User(String userName, String password, String email) {
+    public User(String userName,  String email,String password) {
         this.userName = userName;
         this.password = password;
         this.email = email;
