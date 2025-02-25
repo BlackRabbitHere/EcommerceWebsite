@@ -70,4 +70,9 @@ public class User{
     orphanRemoval = true) // orphanRemoval -> It will remove the orphan items which donot have owner
     private Set<Product>products;
 
+    @ToString.Exclude
+    @OneToOne(mappedBy="user",cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
+    private Cart cart;
+
+
 }
