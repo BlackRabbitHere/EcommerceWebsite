@@ -54,4 +54,11 @@ public class AddressController {
         return new ResponseEntity<>(addressList,HttpStatus.OK);
     }
 
+    @PutMapping("/addresses/{addressId}")
+    public ResponseEntity<AddressDTO> updateAddressByAddressId(@PathVariable Long addressId
+            ,@Valid @RequestBody AddressDTO addressDTO){
+        AddressDTO updatedAddress=addressService.updateAddress(addressId,addressDTO);
+        return new ResponseEntity<>(updatedAddress,HttpStatus.OK);
+    }
+
 }
