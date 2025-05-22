@@ -43,6 +43,9 @@ public class ProductServiceImp implements ProductService{
 
     @Value("${project.image}") // property defined in application.properties
     private String path;
+
+    @Value("${image.base.url}")
+    private String imageBaseUrl;
     @Autowired
     private CartRepository cartRepository;
 
@@ -77,6 +80,9 @@ public class ProductServiceImp implements ProductService{
         }
 
     }
+    private String constructImageUrl(String imageName){
+        return imageBaseUrl.endsWith("/")?imageBaseUrl+imageName:imageBaseUrl+"/"+imageName;
+    }
 
     @Override
     public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
@@ -91,7 +97,11 @@ public class ProductServiceImp implements ProductService{
         }
         // To check if product size is 0 or not
         List<ProductDTO>productDTOS=products.stream()
-                .map(product ->modelMapper.map(product, ProductDTO.class))
+                .map(product -> {
+                    ProductDTO productDTO=modelMapper.map(product, ProductDTO.class);
+                    productDTO.setImage(constructImageUrl(product.getImage()));
+                    return productDTO;
+                })
                 .toList();
 
         ProductResponse productResponse=new ProductResponse();
