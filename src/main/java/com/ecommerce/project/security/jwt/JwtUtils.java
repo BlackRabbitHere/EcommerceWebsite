@@ -44,10 +44,10 @@ public class JwtUtils {
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
-                .path("/api")
+                .path("/")
                 .maxAge(24 * 60 * 60)
-                .httpOnly(false)
-                .secure(false)
+                .httpOnly(true)
+                .secure(false)// this for development mode else in production it should be true
                 .build();
         return cookie;
     }
@@ -91,7 +91,7 @@ public class JwtUtils {
 
     public ResponseCookie getCleanJwtCookie() {
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, null)
-                .path("/api")
+                .path("/")
                 .build();
         return cookie;
     }
