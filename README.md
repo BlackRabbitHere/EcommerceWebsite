@@ -16,7 +16,7 @@ From **JWT-based authentication**, **role management**, and **DTO mapping** to *
 * ✅ **Pagination and Filtering** for scalable data access
 * ✅ **Hibernate & JPA** for ORM and data persistence
 * ✅ **Dockerized Application**, deployed on **Render**
-* ✅ Ready to be integrated with any frontend (React frontend available [here](#frontend-link))
+* ✅ Ready to be integrated with any frontend (React frontend available [here](https://github.com/BlackRabbitHere/Ecom-frontend))
 
 ---
 
@@ -147,9 +147,9 @@ PRs and feedback are welcome! Just fork the repo and submit your changes.
 
 ## 🔗 Links
 
-* 🔴 **Live Backend API**: [https://your-render-link.com](https://your-render-link.com)
-* 💻 **Frontend Repo**: [GitHub Frontend](https://github.com/your-username/ecommerce-frontend)
-* 🔧 **Backend Repo**: [GitHub Backend](https://github.com/your-username/ecommerce-backend)
+* 🔴 **Live Project**: [https://ecom-by-blackrabbit.netlify.app/](https://ecom-by-blackrabbit.netlify.app/)
+* 💻 **Frontend Repo**: [GitHub Frontend](https://github.com/BlackRabbitHere/Ecom-frontend)
+* 🔧 **Backend Repo**: [GitHub Backend](https://github.com/BlackRabbitHere/EcommerceWebsite)
 
 ---
 
